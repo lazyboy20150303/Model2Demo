@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>Model2Demo</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  	<listener>
+		<listener-class>listener.MyHttpSessionListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>listener.MyServletContextListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>listener.MyServletRequestListener</listener-class>
+	</listener>
+
+	<filter>
+		<filter-name>myFilter</filter-name>
+		<filter-class>filter.MyFilter</filter-class>
+		<init-param>
+			<description>request的url中包含这些字符则忽略过滤</description>
+			<param-name>toignore</param-name>
+			<param-value>login.jsp,LoginServlet</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>myFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>myFilter2</filter-name>
+		<filter-class>filter.MyFilter2</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>myFilter2</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>login</servlet-name>
+		<servlet-class>servlet.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>login</servlet-name>
+		<url-pattern>/servlet/LoginServlet</url-pattern>
+	</servlet-mapping>
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error.jsp</location>
+	</error-page>
+</web-app>
